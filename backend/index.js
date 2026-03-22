@@ -1,12 +1,18 @@
+require("dotenv").config(); // 🔥 load .env variables
+
 const express = require("express");
 const dbConnection = require("./config/db");
 
-const app = express(); // assign express framework into app variable
+const app = express();
 
-//DB connection
+// Middleware 
+app.use(express.json());
+
+// DB connection
 dbConnection();
 
-app.get("/", (req,res)=>res.send("hello world"));
+app.get("/", (req, res) => res.send("hello world"));
 
-const PORT = 3030;
-app.listen(PORT,()=>console.log(`server running on PORT ${PORT}`));
+const PORT = process.env.PORT || 3030;
+
+app.listen(PORT, () => console.log(`server running on PORT ${PORT}`));

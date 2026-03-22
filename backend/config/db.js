@@ -1,18 +1,18 @@
-const mongoose = require("mongoose")
+require("dotenv").config(); // load env
 
-const dburl = 
-"mongodb://lumoracaptures_db_user:3BeBLSwM0HvkhBSr@ac-69f9pm5-shard-00-00.3gokvi4.mongodb.net:27017,ac-69f9pm5-shard-00-01.3gokvi4.mongodb.net:27017,ac-69f9pm5-shard-00-02.3gokvi4.mongodb.net:27017/?ssl=true&replicaSet=atlas-guu0lk-shard-0&authSource=admin&appName=Cluster0";
+const mongoose = require("mongoose");
 
-mongoose.set("strictQuery", true); //to maintain data integrity,minimize version conflicts , improve security   
+const dburl = process.env.MONGO_URI;
 
-//make connection
-const connection = async ()=>{
-    try{
+mongoose.set("strictQuery", true);
+
+const connection = async () => {
+    try {
         await mongoose.connect(dburl);
         console.log("MongoDB Connected");
-    } catch(e){
+    } catch (e) {
         console.error(e.message);
-        process.exit();
+        process.exit(1);
     }
 };
 
